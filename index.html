@@ -81,6 +81,23 @@
             '/': dividir,
             '^': potencia,
         }
+
+        for (const button of buttons) {
+            button.addEventListener('click', manejarClick);
+        }
+        function manejarClick(evento) {
+            let value = evento.target.textContent;
+
+            if (!isNaN(value) || value === '.') {
+                currentInput += value;
+                actualizarDisplay(currentInput);
+            }
+            else if (value in operaciones) {
+                operator = value;
+                firstNumber = parseFloat(currentInput);
+                currentInput = '';
+            }
+        }
     </script>
 </body>
 
