@@ -42,12 +42,7 @@
 
         <div class="history">
             <h2>Historial Operaciones</h2>
-            <ul id="historyList">
-                <ol>
-                    <li>1+1=2</li>
-                    <li>2+3=5</li>
-                    <li>6*6=36</li>
-                </ol>
+            <ul id="historyList"> 
             </ul>
         </div>
     </div>
@@ -74,6 +69,9 @@
         function potencia(a, b) {
             return Math.pow(a, b);
         }
+        function raiz(a) {
+            return Math.sqrt(a);
+        }
         const operaciones = {
             '+': sumar,
             '-': restar,
@@ -81,23 +79,10 @@
             '/': dividir,
             '^': potencia,
         }
-
-        for (const button of buttons) {
-            button.addEventListener('click', manejarClick);
+        function actualizarDisplay(valor) {
+            display.value = valor;
         }
-        function manejarClick(evento) {
-            let value = evento.target.textContent;
 
-            if (!isNaN(value) || value === '.') {
-                currentInput += value;
-                actualizarDisplay(currentInput);
-            }
-            else if (value in operaciones) {
-                operator = value;
-                firstNumber = parseFloat(currentInput);
-                currentInput = '';
-            }
-        }
     </script>
 </body>
 
