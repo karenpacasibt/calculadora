@@ -79,10 +79,58 @@
             '/': dividir,
             '^': potencia,
         }
+        
         function actualizarDisplay(valor) {
             display.value = valor;
         }
 
+        for (const button of buttons) {
+            button.addEventListener('click', manejarClick);
+        }
+        function manejarClick(evento) {
+            let value = evento.target.textContent;
+
+            if (!isNaN(value) || value === '.') {
+                currentInput += value;
+                actualizarDisplay(currentInput);
+            }
+            else if (value in operaciones) {
+                operator = value;
+                firstNumber = parseFloat(currentInput);
+                currentInput = '';
+            }
+            else if (value === '√') {
+                var result = raiz(parseFloat(currentInput));
+                actualizarDisplay(result);
+                currentInput = result.toString();
+            }
+            else if (value === '⌫') {
+                currentInput = currentInput.slice(0, -1);
+                actualizarDisplay(currentInput || '0');
+            }
+
+            else if (value === 'CE') {
+                currentInput = '';
+                firstNumber = null;
+                operator = '';
+                actualizarDisplay('0');
+            }
+
+            else if (value === '=') {
+                if (firstNumber !== null && currentInput !== '') {
+                    var secondNumber = parseFloat(currentInput);
+                    var operacion = operaciones[operator];
+                    var resultado = operacion ? operacion(firstNumber, secondNumber) : 'Error';
+
+                    actualizarDisplay(resultado);
+                    agregarAHistorial(firstNumber + ' ' + operator + ' ' + secondNumber + ' = ' + resultado);
+
+                    currentInput = resultado.toString();
+                    firstNumber = null;
+                    operator = '';
+                }
+            }
+        }
     </script>
 </body>
 
