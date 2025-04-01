@@ -79,11 +79,15 @@
             '/': dividir,
             '^': potencia,
         }
-        
         function actualizarDisplay(valor) {
             display.value = valor;
         }
 
+        function agregarAHistorial(texto) {
+            const li = document.createElement('li');
+            li.textContent = texto;
+            historyList.appendChild(li);
+        }
         for (const button of buttons) {
             button.addEventListener('click', manejarClick);
         }
@@ -102,6 +106,7 @@
             else if (value === '√') {
                 var result = raiz(parseFloat(currentInput));
                 actualizarDisplay(result);
+                agregarAHistorial('√' + currentInput + ' = ' + result);
                 currentInput = result.toString();
             }
             else if (value === '⌫') {
