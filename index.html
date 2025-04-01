@@ -15,13 +15,14 @@
             font-family: Arial, sans-serif;
             height: 100vh;
             display: flex;
-            justify-content: center; /* centramos el contenedor en el body */
+            justify-content: center;
+            /* centramos el contenedor en el body */
             align-items: center;
         }
 
         .container {
             display: flex;
-            gap: 70px;
+            gap: 70px; /* distancia de contenedores*/
             align-items: flex-start;
         }
 
@@ -99,7 +100,7 @@
                 <button value="7">7</button>
                 <button value="8">8</button>
                 <button value="9">9</button>
-                <button >+</button>
+                <button>+</button>
 
                 <button value="4">4</button>
                 <button value="5">5</button>
@@ -126,9 +127,11 @@
         <div class="history">
             <h2>Historial Operaciones</h2>
             <ul id="historyList">
-                <li>1+1=2</li>
-                <li>2+3=5</li>
-                <li>6*6=36</li>
+                <ol>
+                    <li>1+1=2</li>
+                    <li>2+3=5</li>
+                    <li>6*6=36</li>
+                </ol>
             </ul>
         </div>
     </div>
