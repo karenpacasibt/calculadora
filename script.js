@@ -2,9 +2,21 @@ const display = document.getElementById('display');
 const buttons = document.querySelectorAll('.buttons button');
 const historyList = document.getElementById('historyList');
 
+const operaciones = {
+    '+': sumar,
+    '-': restar,
+    'x': multiplicar,
+    '/': dividir,
+    '^': potencia,
+}
 let currentInput = '';
 let operator = '';
 let firstNumber = null;
+
+for (const button of buttons) {
+    button.addEventListener('click', manejarClick);
+}
+
 function sumar(a, b) {
     return a + b;
 }
@@ -23,13 +35,7 @@ function potencia(a, b) {
 function raiz(a) {
     return Math.sqrt(a);
 }
-const operaciones = {
-    '+': sumar,
-    '-': restar,
-    'x': multiplicar,
-    '/': dividir,
-    '^': potencia,
-}
+
 function actualizarDisplay(valor) {
     display.value = valor;
 }
@@ -39,13 +45,11 @@ function agregarAHistorial(texto) {
     li.textContent = texto;
     historyList.appendChild(li);
 }
-for (const button of buttons) {
-    button.addEventListener('click', manejarClick);
-}
+
 function manejarClick(evento) {
     let value = evento.target.textContent;
 
-    if (!isNaN(value) || value === '.') {
+    if (value === '.') {
         currentInput += value;
         actualizarDisplay(currentInput);
     }
@@ -55,7 +59,7 @@ function manejarClick(evento) {
         currentInput = '';
     }
     else if (value === '√') {
-        var result = raiz(parseFloat(currentInput));
+        let result = raiz(parseFloat(currentInput));
         actualizarDisplay(result);
         agregarAHistorial('√' + currentInput + ' = ' + result);
         currentInput = result.toString();
@@ -74,9 +78,9 @@ function manejarClick(evento) {
 
     else if (value === '=') {
         if (firstNumber !== null && currentInput !== '') {
-            var secondNumber = parseFloat(currentInput);
-            var operacion = operaciones[operator];
-            var resultado = operacion ? operacion(firstNumber, secondNumber) : 'Error';
+            let secondNumber = parseFloat(currentInput);
+            let operacion = operaciones[operator];
+            let resultado = operacion ? operacion(firstNumber, secondNumber) : 'Error';
 
             actualizarDisplay(resultado);
             agregarAHistorial(firstNumber + ' ' + operator + ' ' + secondNumber + ' = ' + resultado);
